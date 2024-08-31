@@ -467,6 +467,7 @@ dependencies = [
 name = "ipa-select"
 version = "0.1.0"
 dependencies = [
+ "ark-bls12-381",
  "ark-dh-commitments",
  "ark-ec",
  "ark-ed-on-bls12-381-bandersnatch",
