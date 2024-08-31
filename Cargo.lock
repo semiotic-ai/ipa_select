@@ -479,6 +479,7 @@ dependencies = [
  "digest 0.10.7",
  "ipa-multipoint",
  "merlin",
+ "rayon",
  "sha3",
  "tiny-keccak",
 ]

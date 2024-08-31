@@ -7,6 +7,7 @@ use ark_ff::Field;
 use blake2::Blake2b;
 use std::time::Instant;
 use ark_ec::pairing::Pairing;
+use rayon::prelude::*;
 
 type CommitmentG1 = PedersenCommitment<<Bls12_381 as Pairing>::G1>;
 type CommitmentG2 = PedersenCommitment<<Bls12_381 as Pairing>::G2>;
@@ -103,10 +104,15 @@ fn main() {
     
     let z = Fr::from_random_bytes(&z_bytes).unwrap();
     let r = Fr::from_random_bytes(&r_bytes).unwrap();
+    let r_inv = r.inverse().unwrap();
     let mut r_pow = Fr::one();
+    let mut r_pow_inv = Fr::one();
     let mut r_vec = Vec::new();
+    let mut r_vec_inv = Vec::new();
     for _ in 0..n {
+        r_vec_inv.push(r_pow_inv);
         r_vec.push(r_pow);
+        r_pow_inv *= r_inv;
         r_pow *= r;
     }
 
@@ -140,7 +146,7 @@ fn main() {
 
     // Calculate rescaled h_key
     let h_key_rescale_time = start_time.elapsed().as_millis();
-    let h_key_prime: Vec<<Bls12_381 as Pairing>::G2> = h_key.iter().zip(&r_vec).map(|(h, r)| h.mul(r.inverse().unwrap())).collect();
+    let h_key_prime: Vec<<Bls12_381 as Pairing>::G2> = h_key.par_iter().zip(&r_vec_inv).map(|(h, r)| h.mul(r)).collect();
     let h_key_prime_time = start_time.elapsed().as_millis() - h_key_rescale_time;
     println!("Rescaled h_key, took {}ms", h_key_prime_time);
 
