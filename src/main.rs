@@ -44,7 +44,6 @@ fn main() {
     // Setup the commitment keys 
     let (srs, out_key) = ScalarIPA::setup(&mut rng, n).unwrap();
     let (h_key, g_key) = srs.get_commitment_keys();
-    let cks = (h_key.as_slice(), g_key.as_slice(), &out_key.clone());
     let v_srs = srs.get_verifier_key();
 
     // Commit to vectors and output
