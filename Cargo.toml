@@ -1,0 +1,17 @@
+[package]
+name = "ipa-select"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ark-dh-commitments = { git = "https://github.com/arkworks-rs/ripp.git", version = "0.4.0" }
+ark-ed-on-bls12-381-bandersnatch = "0.4.0"
+ark-ff = "0.4.2"
+ark-inner-products = { git = "https://github.com/arkworks-rs/ripp.git", version = "0.4.0" }
+ark-ip-proofs = { git = "https://github.com/arkworks-rs/ripp.git", version = "0.4.0" }
+ark-std = "0.4.0"
+blake2 = "0.9"
+digest = "0.10.7"
+ipa-multipoint = { git = "https://github.com/crate-crypto/rust-verkle.git", version = "0.1.0" }
+sha3 = "0.10.8"
+tiny-keccak = { version = "2.0.2", features = ["sha3"] }
